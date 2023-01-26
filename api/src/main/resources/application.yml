@@ -1,0 +1,13 @@
+spring:
+   config:
+      import: optional:file:.env[.properties]
+   main:
+      web-application-type: servlet
+   data:
+     mongodb:
+         uri: ${PASSWD}
+         database: DB
+server: 
+   port: ${PORT}
+  
+
