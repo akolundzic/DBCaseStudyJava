@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 public class Stops {
 
     @Id
-    private String DS100;
+    private String _id;
+    @Field("DS100")
+    private String DS100;//is the primary Id for the endpoints, query
     private String EVA_NR;
     private String IFOPT;
     private String NAME;
