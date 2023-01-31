@@ -1,52 +1,34 @@
 package com.vanessaapi.api.service;
-
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.cdi.MongoRepositoryBean;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.vanessaapi.api.model.Stops;
-import com.vanessaapi.api.repository.StopsRepository;
+import com.vanessaapi.api.repository.StopsRepo;
 
 @Service
-public class StopsService {
+public class StopsService implements StopsInterface{
 
     @Autowired
-    private StopsRepository repository;
+    private StopsRepo repo;
 
-    //CRUD Operations
-    //save
-    public Stops addStation(Stops stops){
+    @Override
+    public String saveStops(Stops stop) {
+        
+        return repo.save(stop).get_id();
+    }
 
-        return repository.save(stops);
-    }
-    //read Operations,
-    //Find all
-    public List<Stops> getAll(){
+    public List<Stops> getallStops(){
 
-        return repository.findAll();
+        return repo.findAll();
     }
-    // find by DS100
-    public Stops getOnebyDS( String DS100){
-
-         return repository.findById(DS100)
-         .orElseThrow(()-> new RuntimeException(String.format("Stop %s not found",DS100)));
+    @Query("{'DS100' : ?0}")
+    public Optional<Stops> getOnebyDS( String DS100){
+       
+        return repo.findById(DS100);
     }
-    // get one by Id
-    public Stops getOnebyId(String Idin){
-        return repository.findById(Idin).get();
-    }
-    //update
-    public Stops updateStops(Stops stop ){
-        //get existing doc from db
-        //populate from request ot ex. entity
-        return repository.findById(stop.get_id()).get();
-
-    }
-    //delete 
-    public String deleteStop(String Id){
-        repository.deleteById(Id);
-        return "Stop deleted";
-    }
+    
 }

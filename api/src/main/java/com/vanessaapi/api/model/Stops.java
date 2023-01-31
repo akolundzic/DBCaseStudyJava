@@ -3,15 +3,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
-@Document(collection =  "Bahnhoefe")
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
+@Document(collection =  "Bahnhoefe")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Stops {
 
     @Id
