@@ -25,10 +25,10 @@ public class StopsService implements StopsInterface{
 
         return repo.findAll();
     }
-    @Query("{'DS100' : ?0}")
-    public Optional<Stops> getOnebyDS( String DS100){
+    // @Query("{'DS100' : ?0}")
+    public Optional<Stops> getOnebyId( String id){
        
-        return repo.findById(DS100);
+        return repo.findById(id);
     }
     
 }
