@@ -1,10 +1,12 @@
 package com.vanessaapi.api.controller;
+import com.vanessaapi.api.repository.StopsRepo;
 
 import java.util.List;
 import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -25,13 +27,10 @@ public class StopsController {
 
     @Autowired
     private StopsInterface service;
+    @Autowired
+    private MongoTemplate mt;
 
-
-    @GetMapping("/{DS100}")
-    public String testEndpoint(@PathVariable String DS100){
-        
-        return "DS100: "+DS100;
-    }
+  
     @GetMapping("/")
     public String welcome(){
         return "Welcome to the DB Test API ";
@@ -53,12 +52,14 @@ public class StopsController {
 
         return service.getOnebyId(id);
     }    
-    @GetMapping("/stops/{DS100}")
-    public Stops getDS(@PathVariable String DS100 ){
-        Query query = new Query();
-        query.addCriteria(Criteria.where("DS100").is(DS100));
-        return service.find(query,Stops.class);
+    @GetMapping("/stops/DS/{DS}")
+    public Optional<Stops> getDS(@PathVariable String DS ){
+
+        return service.getOneDS(DS);
+
+       }       
         
-    }
+        
+    
     
 }
