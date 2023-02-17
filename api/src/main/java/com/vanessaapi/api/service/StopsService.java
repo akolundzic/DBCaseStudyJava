@@ -1,12 +1,15 @@
 package com.vanessaapi.api.service;
+import com.vanessaapi.api.middleware.ApiError;
 import java.util.List;
 import java.util.Optional;
+import java.lang.String;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+
 
 import com.vanessaapi.api.model.Stops;
 import com.vanessaapi.api.repository.StopsRepo;
@@ -41,13 +44,22 @@ public class StopsService implements StopsInterface{
     }
     
     @Override
-    public Optional<Stops> getOneDS(String DS ){
+    public Optional<Stops> getOneDS(String DS, ApiError dt){
         Query query = new Query();
         query.addCriteria(Criteria.where("DS100").is(DS));
-        Stops obj = mt.findOne(query, Stops.class);
-        if(obj == null) {
-            throw new IllegalStateException("Stop not found");
+        try {
+            Stops obj = mt.findOne(query, Stops.class);
+            return Optional.of(obj);
+        } catch (Exception e) {
+            throw dt;
         }
-        return Optional.of(obj);
-       }         
+        
+       }    
+
+    
+
+    
+     
+         
+    
 }

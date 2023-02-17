@@ -3,13 +3,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.vanessaapi.api.model.Stops;
+import com.vanessaapi.api.middleware.ApiError;
 
 public interface StopsInterface  {
 
     String saveStops(Stops stop);
     List<Stops> getallStops();
     Optional<Stops> getOnebyId(String id);
-    Optional<Stops> getOneDS(String DS );
+    Optional<Stops> getOneDS(String DS, ApiError dt);
 
     
     
