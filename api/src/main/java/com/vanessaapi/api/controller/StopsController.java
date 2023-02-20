@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ProblemDetail;
 import org.springframework.validation.annotation.Validated;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class StopsController {
 
     @Autowired
     private StopsInterface service;
+    
 
     @GetMapping("/")
     public String welcome(){
@@ -50,17 +52,18 @@ public class StopsController {
     }    
     
     @GetMapping("/distance/{DS1}")
-    public Optional<Stops> getDS( @NotBlank @PathVariable("DS1") String DS1){
-       
-        String detail = "No Stops found for "+DS1;
+    public Optional<Stops> getDS( @PathVariable(required = false) String DS1){
+        
+        String detail = "No Stops found for parameter "+DS1;
         String type ="/distance/"+DS1;
-        String title ="Ther was no stop found in the data";
-        var dt = new ApiError("Ther is no Stop for"+DS1, detail, type, title);
+        String title ="There was no stop found in the data";
+        String message = "There is no Stop for"+DS1;
+        var dt = new ApiError(message, detail, type, title);
         
         return service.getOneDS(DS1, dt);
        
        }
-  
+    
     
             
     

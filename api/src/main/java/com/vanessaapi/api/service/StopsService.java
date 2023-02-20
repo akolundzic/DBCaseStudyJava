@@ -3,7 +3,7 @@ import com.vanessaapi.api.middleware.ApiError;
 import java.util.List;
 import java.util.Optional;
 import java.lang.String;
-
+import com.vanessaapi.api.middleware.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -47,6 +47,7 @@ public class StopsService implements StopsInterface{
     public Optional<Stops> getOneDS(String DS, ApiError dt){
         Query query = new Query();
         query.addCriteria(Criteria.where("DS100").is(DS));
+        
         try {
             Stops obj = mt.findOne(query, Stops.class);
             return Optional.of(obj);

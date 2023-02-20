@@ -5,11 +5,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+
 public class ApiError extends RuntimeException {
     
-    private String detail;
-    private String type;
-    private String title;
+    private String detail="No Endpoint route found";
+    private String type="Error";
+    private String title="Invalid Request";
 
     public ApiError( String message, String detail, String type, String title) {
 
