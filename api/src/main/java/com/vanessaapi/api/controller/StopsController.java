@@ -1,13 +1,12 @@
 package com.vanessaapi.api.controller;
-import com.vanessaapi.api.middleware.ApiError;
+import com.vanessaapi.api.exceptions.StopNotFound;
+
 import java.util.Optional;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ProblemDetail;
 import org.springframework.validation.annotation.Validated;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vanessaapi.api.model.Stops;
 import com.vanessaapi.api.service.StopsInterface;
+
 import jakarta.validation.constraints.NotBlank;
+
 
 
 @RestController
@@ -50,18 +51,13 @@ public class StopsController {
 
         return service.getOnebyId(id);
     }    
-    
     @GetMapping("/distance/{DS1}")
-    public Optional<Stops> getDS( @PathVariable(required = false) String DS1){
-        
-        String detail = "No Stops found for parameter "+DS1;
-        String type ="/distance/"+DS1;
-        String title ="There was no stop found in the data";
-        String message = "There is no Stop for"+DS1;
-        var dt = new ApiError(message, detail, type, title);
-        
-        return service.getOneDS(DS1, dt);
-       
+    public Optional<Stops> getDS(@NotBlank @PathVariable String DS1){
+        String message = "No data for endpoint "+DS1+" found";
+        try{return service.getOneDS(DS1);}
+        catch(StopNotFound e){
+            throw new StopNotFound(message);
+        }
        }
     
     

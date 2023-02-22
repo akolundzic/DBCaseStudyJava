@@ -1,9 +1,8 @@
 package com.vanessaapi.api.service;
-import com.vanessaapi.api.middleware.ApiError;
 import java.util.List;
 import java.util.Optional;
 import java.lang.String;
-import com.vanessaapi.api.middleware.ApiError;
+// import com.vanessaapi.api.middleware.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -13,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import com.vanessaapi.api.model.Stops;
 import com.vanessaapi.api.repository.StopsRepo;
+import com.vanessaapi.api.exceptions.StopNotFound;
 
 @Service
 public class StopsService implements StopsInterface{
@@ -44,17 +44,17 @@ public class StopsService implements StopsInterface{
     }
     
     @Override
-    public Optional<Stops> getOneDS(String DS, ApiError dt){
+    public Optional<Stops> getOneDS(String DS){
         Query query = new Query();
         query.addCriteria(Criteria.where("DS100").is(DS));
         
-        try {
+        try{
             Stops obj = mt.findOne(query, Stops.class);
             return Optional.of(obj);
-        } catch (Exception e) {
-            throw dt;
         }
-        
+        catch(Exception e){
+            throw new StopNotFound("No stop found with DS100 :"+ DS);
+        }
        }    
 
     
