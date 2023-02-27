@@ -1,10 +1,7 @@
 package com.vanessaapi.api.controller;
 import com.vanessaapi.api.exceptions.StopNotFound;
-
 import java.util.Optional;
 import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.ResponseEntity;
 import com.vanessaapi.api.model.Stops;
 import com.vanessaapi.api.service.StopsInterface;
-
 import jakarta.validation.constraints.NotBlank;
 
-
-
 @RestController
-@RequestMapping("/")
+@RequestMapping("api/v1")
 @Validated
 public class StopsController {
 
@@ -59,6 +53,12 @@ public class StopsController {
             throw new StopNotFound(message);
         }
        }
+    @GetMapping("/distance/{DS1}/{DS2}")
+    public ResponseEntity<?> getTwoStops(@NotBlank @PathVariable String DS1,
+     @NotBlank @PathVariable String DS2){
+
+        return ResponseEntity.ok(service.getTwoStops(DS1,DS2));
+     }
     
     
             

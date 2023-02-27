@@ -14,7 +14,7 @@ import  java.lang.Override;
 
 @ControllerAdvice
 public class ApiExceptionHandlers extends ResponseEntityExceptionHandler{
-  
+
     @ExceptionHandler(value ={StopNotFound.class})
     // @ResponseStatus(value= HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleApiRequestException(StopNotFound e, WebRequest request, ServletWebRequest servlet ) {
@@ -34,7 +34,8 @@ public class ApiExceptionHandlers extends ResponseEntityExceptionHandler{
         LocalDateTime timestamp = LocalDateTime.now();
         String message = ex.getMessage();
         // String path =((ServletWebRequest)request).getRequest().getRequestURI().toString();
-        String path = ex.getRequestURL();
+        // String path = ex.getRequestURL();
+        // ex.
         int statuserror = HttpStatus.NOT_FOUND.value();
         String error = "No data was found for this request path";
         ApiError apiError = new ApiError(message,statuserror,error,path,timestamp);
