@@ -47,7 +47,6 @@ Railway station - stopsSchema
               
 ---
 ## Links
-#### [Git repository](https://github.com/akolundzic/DBCaseStudyJava.git)
 #### [CSV File Deutsche Bahn](https://data.deutschebahn.com/dataset/data-haltestellen.html#)
 
 
