@@ -37,9 +37,9 @@ Railway station - stopsSchema
 
 | HTTP Method | URL            | Request Body                                                 | Success status | Error Status | Description                                                  |
 | ----------- | -------------- | ------------------------------------------------------------ | -------------- | ------------ | ------------------------------------------------------------ |
-| GET         | `/api/v1/distance/DS1/DS2     |  [NAME, DS100 Laenge, Breite ]                                                            | 200            | 404          | Get station information for calculation.           |
-| GET         | `/api/v1/distance/stops     |                                                              | 200            | 404          | Get all stations.          |
-| GET         | `/api/v1/distance/id     |                                                              | 200            | 404          | Get station by id.          |
+| GET         | /api/v1/distance/DS1/DS2     |  [NAME, DS100 Laenge, Breite ]                                                            | 200            | 404          | Get station information for calculation.           |
+| GET         | /api/v1/distance/stops     |                                                              | 200            | 404          | Get all stations.          |
+| GET         | /api/v1/distance/id     |                                                              | 200            | 404          | Get station by id.          |
 
 
  ## Mathematical model to calculate the distance
